@@ -27,4 +27,4 @@ delegation hub, and assemble a reactive Task Manager with filter toggles. Data f
 - [x] Task 2.5: Attach root event delegation listener (no listeners on children)
 - [x] Task 2.6: Implement `renderApp` render loop
 - [x] Task 2.7: Assemble reactive Task Manager with dynamic filter toggles
-- [ ] Task 2.8: Document the zero-orphan-listener DevTools audit in README
+- [x] Task 2.8: Document the zero-orphan-listener DevTools audit in README

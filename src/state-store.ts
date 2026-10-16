@@ -55,6 +55,11 @@ export function commitRender(): void {
   store.committedHookCount = used;
 }
 
+/** Ends a render pass that threw, without recording its (partial) hook count. */
+export function abortRender(): void {
+  store.rendering = false;
+}
+
 export function isRendering(): boolean {
   return store.rendering;
 }

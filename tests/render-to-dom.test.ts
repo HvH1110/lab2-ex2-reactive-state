@@ -1,4 +1,5 @@
 import { createElement, createTextElement } from '../src/create-element';
+import { getHandler } from '../src/events';
 import { mount, renderToDOM } from '../src/render-to-dom';
 import type { Props, VNode, VNodeProps } from '../src/types';
 
@@ -48,16 +49,24 @@ describe('renderToDOM', () => {
     expect(dom.hasAttribute('lang')).toBe(false);
   });
 
-  it('attaches event listeners via addEventListener (no inline attributes)', () => {
+  it('registers handlers for delegation without attaching listeners or inline attributes', () => {
     const onClick = vi.fn();
     const onKeyDown = vi.fn();
+    const addListener = vi.spyOn(EventTarget.prototype, 'addEventListener');
     const dom = asElement(renderToDOM(createElement('button', { onClick, onKeyDown }, 'Click')));
-    dom.click();
-    dom.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
-    expect(onClick).toHaveBeenCalledTimes(1);
-    expect(onKeyDown).toHaveBeenCalledTimes(1);
-    expect(onKeyDown.mock.calls[0]?.[0]).toBeInstanceOf(KeyboardEvent);
+    expect(addListener).not.toHaveBeenCalled();
+    addListener.mockRestore();
+
+    expect(getHandler(dom, 'click')).toBe(onClick);
+    expect(getHandler(dom, 'keydown')).toBe(onKeyDown);
     expect(dom.getAttributeNames()).toEqual([]);
+
+    dom.click(); // no root hub attached: nothing fires
+    expect(onClick).not.toHaveBeenCalled();
+  });
+
+  it.each(['onMouseEnter', 'onFocus', 'onKeyPress'])('rejects non-delegated event prop %s', (name) => {
+    expect(() => renderToDOM(createElement('button', { [name]: () => {} }))).toThrow(/not a delegated event/);
   });
 
   it('renders function components', () => {

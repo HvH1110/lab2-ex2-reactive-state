@@ -24,7 +24,7 @@ delegation hub, and assemble a reactive Task Manager with filter toggles. Data f
 - [x] Task 2.2: Define `SetStateAction`, `StateSetter`, `DelegatedEventType` contracts
 - [x] Task 2.3: Implement `stateStore` + `resetCursor` engine with hook-order invariant
 - [x] Task 2.4: Implement reactive `useState` dispatcher
-- [ ] Task 2.5: Attach root event delegation listener (no listeners on children)
+- [x] Task 2.5: Attach root event delegation listener (no listeners on children)
 - [ ] Task 2.6: Implement `renderApp` render loop
 - [ ] Task 2.7: Assemble reactive Task Manager with dynamic filter toggles
 - [ ] Task 2.8: Document the zero-orphan-listener DevTools audit in README

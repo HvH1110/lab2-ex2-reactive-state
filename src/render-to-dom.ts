@@ -1,3 +1,4 @@
+import { registerHandler, toDelegatedEventType } from './events';
 import {
   isComponentVNode,
   isEventProp,
@@ -25,7 +26,8 @@ function applyProps(element: HTMLElement, props: VNodeProps): void {
     }
 
     if (isEventProp(name, value)) {
-      element.addEventListener(name.slice(2).toLowerCase(), value);
+      // No listener on the element itself: the root delegation hub dispatches to this handler.
+      registerHandler(element, toDelegatedEventType(name), value);
       continue;
     }
 

@@ -1,6 +1,7 @@
 import {
   TEXT_ELEMENT,
   isComponentVNode,
+  isDelegatedEventType,
   isElementVNode,
   isEmptyChild,
   isEventProp,
@@ -58,5 +59,12 @@ describe('isEventProp', () => {
     expect(isEventProp('onClick', 'alert(1)')).toBe(false);
     expect(isEventProp('onclick', () => {})).toBe(false);
     expect(isEventProp('one', () => {})).toBe(false);
+  });
+});
+
+describe('isDelegatedEventType', () => {
+  it('accepts only the bubbling events handled by the root hub', () => {
+    expect(['click', 'input', 'change', 'keydown', 'submit'].every(isDelegatedEventType)).toBe(true);
+    expect(['focus', 'mouseenter', 'keypress', 'Click', ''].some(isDelegatedEventType)).toBe(false);
   });
 });

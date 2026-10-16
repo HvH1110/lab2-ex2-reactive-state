@@ -84,3 +84,29 @@ export function isTextChild(value: unknown): value is string | number {
 export function isEventProp(name: string, value: unknown): value is EventHandler {
   return /^on[A-Z]/.test(name) && typeof value === 'function';
 }
+
+// ---------------------------------------------------------------------------
+// Exercise 2: state & event delegation contracts
+// ---------------------------------------------------------------------------
+
+/** A new value, or an updater that derives it from the previous value. */
+export type SetStateAction<T> = T | ((previous: T) => T);
+
+export type StateSetter<T> = (action: SetStateAction<T>) => void;
+
+export type StateHook<T> = readonly [value: T, setValue: StateSetter<T>];
+
+/** Re-renders the whole app; installed by renderApp via setRenderer. */
+export type Renderer = () => void;
+
+/** The root component of an app (hooks may be called inside it). */
+export type RootComponent = () => VNode;
+
+/** Bubbling event types handled by the root delegation hub. */
+export const DELEGATED_EVENTS = ['click', 'input', 'change', 'keydown', 'submit'] as const;
+
+export type DelegatedEventType = (typeof DELEGATED_EVENTS)[number];
+
+export function isDelegatedEventType(value: string): value is DelegatedEventType {
+  return (DELEGATED_EVENTS as readonly string[]).includes(value);
+}

@@ -20,7 +20,7 @@ delegation hub, and assemble a reactive Task Manager with filter toggles. Data f
 ## Checklist
 
 - [x] Task 2.0: Write `project-rules.md` and `TASK_DECOMPOSITION.md`
-- [ ] Task 2.1: Import VNode engine (`createElement`, `renderToDOM`, audit) and toolchain from Exercise 1
+- [x] Task 2.1: Import VNode engine (`createElement`, `renderToDOM`, audit) and toolchain from Exercise 1
 - [ ] Task 2.2: Define `SetStateAction`, `StateSetter`, `DelegatedEventType` contracts
 - [ ] Task 2.3: Implement `stateStore` + `resetCursor` engine with hook-order invariant
 - [ ] Task 2.4: Implement reactive `useState` dispatcher
